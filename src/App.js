@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
 
 function App() {
   const [games, setGames] = useState([]);
@@ -24,6 +25,10 @@ function App() {
   useEffect(() => {
     const localGames = localStorage.getItem('games');
     setGames(localGames ? JSON.parse(localGames) : []);
+    const localPlayerName = localStorage.getItem('playerName');
+    setPlayerName(localPlayerName ? localPlayerName : '');
+    const localJerseyNumber = localStorage.getItem('jerseyNumber');
+    setJerseyNumber(localJerseyNumber ? localJerseyNumber : '');
   }, []);
 
   useEffect(() => {
@@ -51,7 +56,6 @@ function App() {
       setAvgStats({ puntos: 0, asistencias: 0, rebotes: 0, bloqueos: 0 });
     }
   }, [games]);
-  
 
   const addGame = () => {
     const newGames = [...games];
@@ -80,7 +84,11 @@ function App() {
 
   const resetGames = () => {
     setGames([]);
+    setPlayerName('');
+    setJerseyNumber('');
     localStorage.removeItem('games');
+    localStorage.removeItem('playerName');
+    localStorage.removeItem('jerseyNumber');
   };
 
   const handleChange = (e) => {
@@ -100,111 +108,128 @@ function App() {
     }
   };
 
+  const handlePlayerNameChange = (e) => {
+    setPlayerName(e.target.value);
+    localStorage.setItem('playerName', e.target.value);
+  };
+
+  const handleJerseyNumberChange = (e) => {
+    setJerseyNumber(e.target.value);
+    localStorage.setItem('jerseyNumber', e.target.value);
+  };
+
   return (
-    <div>
-      <label>
+    <div className="app">
+      <label className="player-label">
         Nombre del jugador:
         <input
+          className="player-input"
           type="text"
           value={playerName}
-          onChange={(e) => setPlayerName(e.target.value)}
+          onChange={handlePlayerNameChange}
           placeholder="Nombre del jugador"
         />
       </label>
-      <label>
-         # de jersey:
+      <label className="jersey-label">
+        # de jersey:
         <input
+          className="jersey-input"
           type="number"
           value={jerseyNumber}
-          onChange={(e) => setJerseyNumber(e.target.value)}
+          onChange={handleJerseyNumberChange}
           placeholder="# del jersey"
         />
       </label>
-      <label>
+      <label className="game-label">
         Nombre del juego:
         <input
+          className="game-input"
           type="text"
           name="name"
           value={currentGame.name}
           onChange={handleChange}
-          placeholder="Nombre del juego"
+          placeholder="vs. + equipo"
         />
       </label>
-      <label>
+      <label className="points-label">
         Puntos:
         <input
+          className="points-input"
           type="number"
           name="puntos"
           value={currentGame.stats.puntos}
           onChange={handleChange}
         />
       </label>
-      <label>
+      <label className="assists-label">
         Asistencias:
         <input
+          className="assists-input"
           type="number"
           name="asistencias"
           value={currentGame.stats.asistencias}
           onChange={handleChange}
         />
       </label>
-      <label>
+      <label className="rebounds-label">
         Rebotes:
         <input
+          className="rebounds-input"
           type="number"
           name="rebotes"
           value={currentGame.stats.rebotes}
           onChange={handleChange}
         />
       </label>
-      <label>
+      <label className="blocks-label">
         Bloqueos:
         <input
+          className="blocks-input"
           type="number"
           name="bloqueos"
           value={currentGame.stats.bloqueos}
           onChange={handleChange}
         />
       </label>
-      <button onClick={addGame}>Agregar/Actualizar juego</button>
+      <button className="add-button" onClick={addGame}>Agregar/Actualizar juego</button>
       
-      {playerName && jerseyNumber && <h1>Temporada de {playerName} #{jerseyNumber}</h1>}
+      {playerName && jerseyNumber && <h1 className="header">Temporada de {playerName} #{jerseyNumber}</h1>}
       
       {games && games.length > 0 && games.map((game, index) => (
         game && (
-          <div key={index}>
-            <h2>{game.name}</h2>
-            <table>
+          <div className="game" key={index}>
+            <h2 className="game-name">{game.name}</h2>
+            <table className="game-table">
               <thead>
                 <tr>
-                  <th>Puntos</th>
-                  <th>Asistencias</th>
-                  <th>Rebotes</th>
-                  <th>Bloqueos</th>
+                  <th className="points-header">Puntos</th>
+                  <th className="assists-header">Asistencias</th>
+                  <th className="rebounds-header">Rebotes</th>
+                  <th className="blocks-header">Bloqueos</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{game.stats.puntos}</td>
-                  <td>{game.stats.asistencias}</td>
-                  <td>{game.stats.rebotes}</td>
-                  <td>{game.stats.bloqueos}</td>
+                  <td className="points-data">{game.stats.puntos}</td>
+                  <td className="assists-data">{game.stats.asistencias}</td>
+                  <td className="rebounds-data">{game.stats.rebotes}</td>
+                  <td className="blocks-data">{game.stats.bloqueos}</td>
                 </tr>
               </tbody>
             </table>
-            <button onClick={() => editGame(index)}>Editar</button>
-            <button onClick={() => deleteGame(index)}>Eliminar</button>
+            <button className="edit-button" onClick={() => editGame(index)}>Editar</button>
+            <button className="delete-button" onClick={() => deleteGame(index)}>Eliminar</button>
           </div>
         )
       ))}
 
-      <h2>Promedios</h2>
-      <p>Puntos: {avgStats.puntos.toFixed(2)}</p>
-      <p>Asistencias: {avgStats.asistencias.toFixed(2)}</p>
-      <p>Rebotes: {avgStats.rebotes.toFixed(2)}</p>
-      <p>Bloqueos: {avgStats.bloqueos.toFixed(2)}</p>
+      <h2 className="avg-header">Promedios por Juego</h2>
+      <p className="points-avg">Puntos: {avgStats.puntos.toFixed(2)}</p>
+      <p className="assists-avg">Asistencias: {avgStats.asistencias.toFixed(2)}</p>
+      <p className="rebounds-avg">Rebotes: {avgStats.rebotes.toFixed(2)}</p>
+      <p className="blocks-avg">Bloqueos: {avgStats.bloqueos.toFixed(2)}</p>
 
-      <button onClick={resetGames}>Restablecer juegos</button>
+      <button className="reset-button" onClick={resetGames}>Restablecer juegos</button>
     </div>
   );
 }

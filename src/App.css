@@ -1,9 +1,107 @@
-body {
-  background-color: black;
-  color: #00ff00;
-  font-family: 'Digital', sans-serif;
+.app {
+  font-family: 'Press Start 2P', monospace, cursive;/* Font similar to digital scoreboards */
+  color: #FFFFFF; /* White text color */
+  background-color: #000000; /* Black background */
+  padding: 20px;
+  text-shadow: 0 0 10px;
+  min-height: 100vh;
 }
 
-h1 {
-  color: #ff0000;
+.header {
+  color: #FFFFFF; /* Red color for the header */
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 0 0 10px #e30c0c
+}
+
+.player-label, .jersey-label, .game-label, .points-label, .assists-label, .rebounds-label, .blocks-label {
+  display: block;
+  margin: 10px 0;
+}
+
+.player-input, .jersey-input, .game-input, .points-input, .assists-input, .rebounds-input, .blocks-input {
+  width: 23%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  background-color: #000000;
+  color: #e30c0c;
+  font-family: 'Press Start 2P', monospace, cursive;
+}
+
+.add-button, .edit-button, .delete-button, .reset-button {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #000000; /* Green color for the buttons */
+  color: #59ff00; /* White color for the button text */
+  border: none;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace, cursive;
+}
+
+.add-button:hover, .edit-button:hover, .delete-button:hover, .reset-button:hover {
+  background-color: #006400; /* Darker green color when hover over the buttons */
+}
+
+.game {
+  border: 1px solid #FFFFFF; /* White border for the game block */
+  margin: 20px 0;
+  padding: 10px;
+}
+
+.game-name {
+  text-align: center;
+  color: #ffee00; /* Blue color for the game name */
+  text-shadow: 0 0 10px #ffee00
+}
+
+.game-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.points-data, .assists-data, .rebounds-data, .blocks-data {
+  text-align: center;
+  color: #FF0000;
+}
+
+.points-header, .assists-header, .rebounds-header, .blocks-header, 
+.points-data, .assists-data, .rebounds-data, .blocks-data {
+  border: 1px solid #FFFFFF; /* White border for the table cells */
+  padding: 10px;
+}
+
+.avg-header {
+  text-align: center;
+  color: #FFFFFF; /* Red color for the averages header */
+  text-shadow: 0 0 10px #e30c0c
+}
+
+.points-avg, .assists-avg, .rebounds-avg, .blocks-avg {
+  color: #ffee00; /* Green color for the averages */
+  text-align: center;
+  text-shadow: 0 0 10px #ffee00
+}
+
+/* Estilos para tabletas */
+@media (max-width: 768px) {
+  .app {
+    padding: 10px;
+  }
+
+  .player-input, .jersey-input, .game-input, .points-input, .assists-input, .rebounds-input, .blocks-input {
+    width: auto; /* Aumentar el ancho de los campos de entrada para que se vean mejor en las tabletas */
+  }
+}
+
+/* Estilos para móviles */
+@media (max-width: 480px) {
+  .app {
+    padding: 5px;
+  }
+
+  .player-input, .jersey-input, .game-input, .points-input, .assists-input, .rebounds-input, .blocks-input {
+    width: auto; /* Aumentar el ancho de los campos de entrada para que se vean mejor en los móviles */
+  }
 }
