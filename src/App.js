@@ -137,7 +137,7 @@ function App() {
           type="number"
           value={jerseyNumber}
           onChange={handleJerseyNumberChange}
-          placeholder="# del jersey"
+          placeholder="# de jersey"
         />
       </label>
       <label className="game-label">
